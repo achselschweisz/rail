@@ -48,6 +48,7 @@ suite('http:validate', function() {
 
   test('OK', function(done) {
     onrequest = function(request, response) {
+      response.setHeader('Content-Type', 'application/json');
       response.end(JSON.stringify({
         hello: 'world'
       }));
@@ -63,7 +64,10 @@ suite('http:validate', function() {
             hello: 'world'
           }
         }
-      }
+      },
+      // TODO: why does this make all requests work???
+      // buffer: true,
+      // json: true
     }, function(response) {
       assert.strictEqual(response.statusCode, 200);
 
